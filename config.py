@@ -38,7 +38,7 @@ def configure(advanced):
     # registry as appropriate.
     from supybot.questions import expect, anything, something, yn
     conf.registerPlugin('MisesQuotes', True)
-
+    
 
 MisesQuotes = conf.registerPlugin('MisesQuotes')
 # This is where your configuration variables (if any) should go.  For example:

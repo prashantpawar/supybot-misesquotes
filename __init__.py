@@ -40,14 +40,14 @@ import supybot.world as world
 __version__ = "%%VERSION%%"
 
 # XXX Replace this with an appropriate author or supybot.Author instance.
-__author__ = supybot.authors.unknown
+__author__ = supybot.Author('Prashant Singh Pawar','Renegade','prashantpawar@gmail.com')
 
 # This is a dictionary mapping supybot.Author instances to lists of
 # contributions.
 __contributors__ = {}
 
 # This is a url where the most recent plugin package can be downloaded.
-__url__ = '' # 'http://supybot.com/Members/yourname/MisesQuotes/download'
+__url__ = 'http://mises.org/quotes.aspx' # 'http://supybot.com/Members/yourname/MisesQuotes/download'
 
 import config
 import plugin

@@ -34,12 +34,32 @@ import supybot.plugins as plugins
 import supybot.ircutils as ircutils
 import supybot.callbacks as callbacks
 
+import httplib
+import re
+
 
 class MisesQuotes(callbacks.Plugin):
-    """Add the help for "@plugin help MisesQuotes" here
-    This should describe *how* to use this plugin."""
+    """
+    This plug fetches page from http://mises.org/quote.aspx and 
+    parses the text stripping HTML tags and displays the text.
+    """
     threaded = True
-
+    def __init__(self,irc):
+        self.__parent = super(MisesQuotes, self)
+        self.__parent.__init__(irc)
+        self.conn=httplib.HTTPConnection("mises.org")
+        
+    def mises(self, irc, msg, args):
+        """
+        Takes no argument and returns a quote from the mises.org.
+        """
+        self.conn.request("GET","/quote.aspx")
+        r1=self.conn.getresponse()
+        quote=r1.read()
+        reobj = re.compile(r"<(style|script)[^<>]*>.*?</\1>|</?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->", re.DOTALL | re.IGNORECASE)
+        quote = reobj.sub("", quote)
+        irc.reply(quote)
+    mises = wrap(mises)
 
 Class = MisesQuotes
 
