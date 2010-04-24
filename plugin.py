@@ -47,15 +47,16 @@ class MisesQuotes(callbacks.Plugin):
     def __init__(self,irc):
         self.__parent = super(MisesQuotes, self)
         self.__parent.__init__(irc)
-        self.conn=httplib.HTTPConnection("mises.org")
         
     def mises(self, irc, msg, args):
         """
         Takes no argument and returns a quote from the mises.org.
         """
+        self.conn=httplib.HTTPConnection("mises.org")
         self.conn.request("GET","/quote.aspx")
         r1=self.conn.getresponse()
         quote=r1.read()
+        self.conn.close()
         reobj = re.compile(r"<(style|script)[^<>]*>.*?</\1>|</?[a-z][a-z0-9]*[^<>]*>|<!--.*?-->", re.DOTALL | re.IGNORECASE)
         quote = reobj.sub("", quote)
         irc.reply(quote)
