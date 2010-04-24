@@ -1,0 +1,1 @@
+This plugin fetches random quotes from mises.org and displays them.
